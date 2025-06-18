@@ -64,7 +64,7 @@ public final class ChartAxis {
 	private static final int maxTickLength = 10000;
 
 	/** Axis values if the axis is categorical and not numeric. */
-	private List<String> categories = new ArrayList<>();
+	private transient List<String> categories = new ArrayList<>();
 	/** Space between the axis and the plot area end. For categorical axis only. */
 	private int endMargin = 30;
 	/** Displays the zero on the axis even if it is not part of the values. For numerical axis only. */
@@ -86,9 +86,9 @@ public final class ChartAxis {
 	/** Space between the axis and the plot area start. For categorical axis only. */
 	private int startMargin = 10;
 	/** Define the color of the axis tick label (e.g. <code>Color.BLACK</code>). <code>Color.valueOf(..)</code> takes color strings (like 'white'), RGB values (like 'rgb(255,255,255)') or HEX strings. */
-	private Color tickLabelColor = Color.BLACK;
+	private String tickLabelColor = "BLACK";
 	/** Object to define the font of the axis tick label. Use <code>Font.font(..)</code> to define one. */
-	private Font tickLabelFont = Font.getDefault();
+	private ChartFont tickLabelFont = ChartFont.font(16);
 	/** The space between to tick labels in pixel. */
 	private int tickLabelGap = 5;
 	/** Degree value to define the axis label rotation. Default value is 0 (horizontal). */
@@ -98,15 +98,15 @@ public final class ChartAxis {
 	/** Size in pixel of the axis tick marks. */
 	private double tickLength = 10;
 	/** Define the color of the axis tick mark (e.g. <code>Color.BLACK</code>). <code>Color.valueOf(..)</code> takes color strings (like 'white'), RGB values (like 'rgb(255,255,255)') or HEX strings. */
-	private Color tickMarkColor = Color.BLACK;
+	private String tickMarkColor = "BLACK";
 	/** Define the color of the minor tick mark (e.g. <code>Color.BLACK</code>). <code>Color.valueOf(..)</code> takes color strings (like 'white'), RGB values (like 'rgb(255,255,255)') or HEX strings. */
-	private Color minorTickMarkColor = Color.BLACK;
+	private String minorTickMarkColor = "BLACK";
 	/** Possibility to show or disable the tick marks. */
 	private boolean tickMarksVisible = true;
-	/** Maximum/highest value of the axis. */
-	private double valueRange = 0;
+	/** Maximum value of the axis. */
+	private transient double valueRange = 0;
 	/** Step size of each tick mark. This value should be a divisor of {@link #valueRange} to avoid the last tick to be smaller than the rest. */
-	private double valueStep = 0;
+	private transient double valueStep = 0;
 	/** If true one additional tick mark will be shown. */
 	private boolean leaveOneStepSpace = false;
 
@@ -190,14 +190,14 @@ public final class ChartAxis {
 	/**
 	 * @return {@link #tickLabelColor}
 	 */
-	public Color getTickLabelColor() {
+	public String getTickLabelColor() {
 		return tickLabelColor;
 	}
 
 	/**
 	 * @return {@link #tickLabelFont}
 	 */
-	public Font getTickLabelFont() {
+	public ChartFont getTickLabelFont() {
 		return tickLabelFont;
 	}
 
@@ -232,14 +232,14 @@ public final class ChartAxis {
 	/**
 	 * @return {@link #tickMarkColor}
 	 */
-	public Color getTickMarkColor() {
+	public String getTickMarkColor() {
 		return tickMarkColor;
 	}
 
 	/**
 	 * @return {@link #minorTickMarkColor}
 	 */
-	public Color getMinorTickMarkColor() {
+	public String getMinorTickMarkColor() {
 		return minorTickMarkColor;
 	}
 
@@ -339,11 +339,11 @@ public final class ChartAxis {
 		this.startMargin = size;
 	}
 
-	public void setTickLabelColor(Color color) {
+	public void setTickLabelColor(String color) {
 		this.tickLabelColor = color;
 	}
 
-	public void setTickLabelFont(Font font) {
+	public void setTickLabelFont(ChartFont font) {
 		this.tickLabelFont = font;
 	}
 
@@ -372,11 +372,11 @@ public final class ChartAxis {
 		this.tickLength = value;
 	}
 
-	public void setTickMarkColor(Color color) {
+	public void setTickMarkColor(String color) {
 		this.tickMarkColor = color;
 	}
 
-	public void setMinorTickMarkColor(Color color) {
+	public void setMinorTickMarkColor(String color) {
 		this.minorTickMarkColor = color;
 	}
 

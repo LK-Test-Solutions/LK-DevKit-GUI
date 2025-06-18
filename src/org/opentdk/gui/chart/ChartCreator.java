@@ -47,6 +47,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.util.StringConverter;
 
 public class ChartCreator {
@@ -139,8 +140,8 @@ public class ChartCreator {
 			((CategoryAxis) axis).setAutoRanging(false);
 		}
 		axis.setTickLabelRotation(properties.getTickLabelRotation());
-		axis.setTickLabelFill(properties.getTickLabelColor());
-		axis.setTickLabelFont(properties.getTickLabelFont());
+		axis.setTickLabelFill(Color.valueOf(properties.getTickLabelColor()));
+		axis.setTickLabelFont(properties.getTickLabelFont().toFont());
 		axis.setTickLabelGap(properties.getTickLabelGap());
 		axis.setLabel(properties.getLabel());
 		axis.setTickLabelsVisible(properties.getTickLabelsVisible());
@@ -153,9 +154,9 @@ public class ChartCreator {
 		String labelPadding = String.format("-fx-padding: %dpx;", properties.getLabelPadding());
 		axis.lookup(".axis-label").setStyle(labelFont + labelPadding);
 
-		axis.lookup(".axis-tick-mark").setStyle(String.format("-fx-stroke: %s;", toRGB(properties.getTickMarkColor())));
+		axis.lookup(".axis-tick-mark").setStyle(String.format("-fx-stroke: %s;", toRGB(Color.valueOf(properties.getTickMarkColor()))));
 		if (axis.lookup(".axis-minor-tick-mark") != null) {
-			axis.lookup(".axis-minor-tick-mark").setStyle(String.format("-fx-stroke: %s;", toRGB(properties.getMinorTickMarkColor())));
+			axis.lookup(".axis-minor-tick-mark").setStyle(String.format("-fx-stroke: %s;", toRGB(Color.valueOf(properties.getMinorTickMarkColor()))));
 		}
 
 		if (saveCategories) {
@@ -194,12 +195,14 @@ public class ChartCreator {
 
 					for (int i = 0; i < values.size(); i++) {
 						String nextValue = values.get(i);
-						if (nextValue == null) {
+						if (nextValue == null || nextValue.isBlank()) {
 							nextValue = "NaN";
 						}
 						if (nextValue.contains(",")) {
-							nextValue.replaceAll(",", "\\.");
+							nextValue = nextValue.replaceAll(",", "\\.");
 						}
+
+						// Position
 						Object xVal = null;
 						if (i < xcategories.size()) {
 							xVal = xcategories.get(i);
@@ -208,33 +211,29 @@ public class ChartCreator {
 
 						if (belongingAxis == 0) {
 							if (xAxis instanceof CategoryAxis && y1Axis instanceof NumberAxis) {
-//								xVal = String.valueOf(xVal);
 								yVal = Double.parseDouble(nextValue);
 							} else if (xAxis instanceof CategoryAxis && y1Axis instanceof CategoryAxis) {
-//								xVal = String.valueOf(xVal);
-								yVal = String.valueOf(nextValue);
+								yVal = nextValue;
 							} else if (xAxis instanceof NumberAxis && y1Axis instanceof NumberAxis) {
 								xVal = Double.parseDouble(String.valueOf(xVal));
 								yVal = Double.parseDouble(nextValue);
 							} else if (xAxis instanceof NumberAxis && y1Axis instanceof CategoryAxis) {
 								xVal = Double.parseDouble(String.valueOf(xVal));
-								yVal = String.valueOf(nextValue);
+								yVal = nextValue;
 							} else {
 								throw new IllegalStateException("ChartCreator ==> xAxis and y1Axis are no instance of a valid axis type.");
 							}
 						} else if (belongingAxis == 1) {
 							if (xAxis instanceof CategoryAxis && y2Axis instanceof NumberAxis) {
-//								xVal = String.valueOf(xVal);
 								yVal = Double.parseDouble(nextValue);
 							} else if (xAxis instanceof CategoryAxis && y2Axis instanceof CategoryAxis) {
-//								xVal = String.valueOf(xVal);
-								yVal = String.valueOf(nextValue);
+								yVal = nextValue;
 							} else if (xAxis instanceof NumberAxis && y2Axis instanceof NumberAxis) {
 								xVal = Double.parseDouble(String.valueOf(xVal));
 								yVal = Double.parseDouble(nextValue);
 							} else if (xAxis instanceof NumberAxis && y2Axis instanceof CategoryAxis) {
 								xVal = Double.parseDouble(String.valueOf(xVal));
-								yVal = String.valueOf(nextValue);
+								yVal = nextValue;
 							} else {
 								throw new IllegalStateException("ChartCreator ==> xAxis and y2Axis are no instance of a valid axis type.");
 							}
@@ -250,6 +249,7 @@ public class ChartCreator {
 
 					chart.getData().add(nextSerie);
 
+					// Styling
 					for (Data<Object, Object> data : nextSerie.getData()) {
 						if (data.getNode() != null) {
 							ObservableList<String> styleClass = data.getNode().getStyleClass();
@@ -355,7 +355,7 @@ public class ChartCreator {
 
 	private String getStyleFromFont(ChartFont font) {
 		String fontFamily = String.format("-fx-font-family: %s;", font.getFamily());
-		String fontWeight = String.format("-fx-font-weight: %s;", font.getWeight().name().toLowerCase());
+		String fontWeight = String.format("-fx-font-weight: %s;", font.getWeight().toLowerCase());
 		String fontSize = String.format("-fx-font-size: %dpx;", font.getSize());
 		return fontFamily + fontWeight + fontSize;
 	}

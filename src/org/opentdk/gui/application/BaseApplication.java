@@ -30,6 +30,7 @@ package org.opentdk.gui.application;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 import org.opentdk.gui.controls.ChoiceBox;
@@ -70,7 +71,7 @@ import javafx.stage.StageStyle;
  * 			controller = (SampleController) super.showStage("Sample.fxml", "Test", super.getPrimaryStage());
  *			controller.reload();
  *		} catch (IOException e) {
- *			MLogger.getInstance().log(Level.SEVERE, e);
+ *			logger.log(Level.SEVERE, e);
  *			Platform.exit();
  *		}
  * 	}
@@ -78,11 +79,9 @@ import javafx.stage.StageStyle;
  * 
  * This would launch a simple window on the screen. The look is defined in the
  * Sample.fxml file that can be designed with the SceneBuilder application. The
- * controller class is in the same package than the FXML file and the sample
+ * controller class is in the same package as the FXML file and the sample
  * controller skeleton can be generated with SceneBuilder as well. The title of
  * the window is 'Test'.<br>
- * <br>
- * Advanced usage:<br>
  * <br>
  * 
  * @author LK Test Solutions
@@ -116,8 +115,8 @@ public abstract class BaseApplication extends Application {
 	private ResourceBundle resourceBundle;
 	/**
 	 * Stage instance of the main layout of the application that gets initialized
-	 * when the start method gets called. It is available as getter for the sub
-	 * class and gets used to initialize the main controller class.
+	 * when the start method gets called. It is available as getter for the subclass
+	 * and gets used to initialize the main controller class.
 	 */
 	private Stage primaryStage;
 	/**
@@ -126,7 +125,7 @@ public abstract class BaseApplication extends Application {
 	private Insets choiceBoxSize = new Insets(20, 150, 10, 10);
 
 	/**
-	 * Force the sub class to load a root layout with the {@link #primaryStage} to
+	 * Force the subclass to load a root layout with the {@link #primaryStage} to
 	 * have a main window appearing with the look of the FXML file that is assigned
 	 * to the main controller class. <br>
 	 * <br>
@@ -155,12 +154,10 @@ public abstract class BaseApplication extends Application {
 
 	/**
 	 * Gets called after {@link #launch(String...)} was called by the subclass in
-	 * the main method. The method is empty by default and is used here to
-	 * initialize the <code>MLogger</code> class.
+	 * the main method. The method is empty by default.
 	 */
 	public void init() {
-//		MLogger.getInstance().setLogFile(EBaseAppSettings.APP_LOGFILE.getValue());
-//		MLogger.getInstance().setTraceLevel(Integer.valueOf(EBaseAppSettings.APP_TRACE_LEVEL.getValue()));
+
 	}
 
 	/**
@@ -390,15 +387,12 @@ public abstract class BaseApplication extends Application {
 	 * @throws IOException if any IO error occurs
 	 */
 	public BaseController showStage(String fxmlFile, String title, Stage stage) throws IOException {
-		BaseController bc = null;
-		Parent parent = null;
+		BaseController bc;
+		Parent parent;
 		FXMLLoader loader = new FXMLLoader();
 
-		URL fxmlLocation = getClass().getResource(fxmlFile);
-		if (fxmlLocation == null) {
-			throw new MalformedURLException("URL instance for FXML is null. Either it does not exist or the reference to the controller class is wrong. The easiest way is to have the controller and the FXML in the same package and just pass the FXML file name ==> no stage will be loaded!");
-		}
-		loader.setLocation(fxmlLocation);
+		URL fxmlLocation = Paths.get(fxmlFile).toUri().toURL();
+        loader.setLocation(fxmlLocation);
 
 		if (resourceBundle != null) {
 			loader.setResources(resourceBundle);			
@@ -407,16 +401,9 @@ public abstract class BaseApplication extends Application {
 
 		Scene scene = new Scene(parent);
 		if (styleSheet != null) {
-			URL cssLocation = getClass().getResource(styleSheet);
-			if (cssLocation == null) {
-				throw new IllegalArgumentException("Style sheet CSS file not found.");
-			} else {
-				URL classResource = getClass().getResource(styleSheet);
-				if(classResource != null) {
-					scene.getStylesheets().add(classResource.toExternalForm());
-				}
-			}
-		}
+			URL cssLocation = Paths.get(styleSheet).toUri().toURL();
+            scene.getStylesheets().add(cssLocation.toExternalForm());
+        }
 		scene.setUserData(loader);
 		scene.setFill(Color.TRANSPARENT);
 
@@ -440,15 +427,12 @@ public abstract class BaseApplication extends Application {
 	 * @throws IOException if any IO error occurs
 	 */
 	public BaseController createComponent(String fxmlFile) throws IOException {
-		BaseController bc = null;
-		Parent parent = null;
+		BaseController bc;
+		Parent parent;
 		FXMLLoader loader = new FXMLLoader();
 
-		URL fxmlLocation = getClass().getResource(fxmlFile);
-		if (fxmlLocation == null) {
-			throw new MalformedURLException("URL to FXML file could not be created ==> no stage will be loaded!");
-		}
-		loader.setLocation(fxmlLocation);
+		URL fxmlLocation = Paths.get(fxmlFile).toUri().toURL();
+        loader.setLocation(fxmlLocation);
 
 		if (resourceBundle != null) {
 			loader.setResources(resourceBundle);

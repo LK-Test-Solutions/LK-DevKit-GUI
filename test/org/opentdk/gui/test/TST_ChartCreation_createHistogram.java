@@ -11,9 +11,6 @@ import org.opentdk.gui.chart.ChartMarker;
 import org.opentdk.gui.chart.ChartProperties;
 import org.opentdk.gui.chart.ChartSeries;
 import org.opentdk.gui.chart.ChartMarker.DataPoint;
-import org.opentdk.api.filter.Filter;
-import org.opentdk.api.mapping.EOperator;
-import org.opentdk.api.util.DateUtil;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -93,9 +90,9 @@ public class TST_ChartCreation_createHistogram extends Application {
 		series.setSeriesFontSize(16);
 		seriesValues.add(series);
 
-		String sCurDate = DateUtil.get("dd.MM.yyyy");
-		Filter filter = new Filter();
-		filter.addFilterRule("Datum", sCurDate, EOperator.CONTAINS_DATE);
+//		String sCurDate = DateUtil.get("dd.MM.yyyy");
+//		Filter filter = new Filter();
+//		filter.addFilterRule("Datum", sCurDate, EOperator.CONTAINS_DATE);
 
 		String mean = "45933";
 		double dMean = Double.parseDouble(mean) / 1000f;
@@ -115,7 +112,7 @@ public class TST_ChartCreation_createHistogram extends Application {
 		Shape[] children = { text, rectangle };
 		chartMarkers.add(ChartMarker.marker(pane, children, DataPoint.point("90", 90), -1.0));
 		
-		cp.setTitle("Histogram " + DateUtil.get("dd.MM.yyyy"));
+		cp.setTitle("Histogram 01.01.2025");
 		cp.setTitleFont(ChartFont.font(26, FontWeight.BOLD));
 		cp.setHeight(756);
 		cp.setWidth(1461);
@@ -131,7 +128,7 @@ public class TST_ChartCreation_createHistogram extends Application {
 		y1Axis.setLabelFont(ChartFont.font(18));
 		y1Axis.setValueRange(100);
 		y1Axis.setValueStep(10);
-		y1Axis.setTickLabelFont(Font.font(16));
+		y1Axis.setTickLabelFont(ChartFont.font(16));
 		y1Axis.setEndMargin(20);
 		cp.setY1Axis(y1Axis);
 		

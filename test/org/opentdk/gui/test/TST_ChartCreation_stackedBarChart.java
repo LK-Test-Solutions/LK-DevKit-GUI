@@ -100,7 +100,7 @@ public class TST_ChartCreation_stackedBarChart extends Application {
 	
 	private String getStyleFromFont(ChartFont font) {
 		String fontFamily = String.format("-fx-font-family: %s;", font.getFamily());
-		String fontWeight = String.format("-fx-font-weight: %s;", font.getWeight().name().toLowerCase());
+		String fontWeight = String.format("-fx-font-weight: %s;", font.getWeight().toLowerCase());
 		String fontSize = String.format("-fx-font-size: %dpx;", font.getSize());
 		return fontFamily + fontWeight + fontSize;
 	}

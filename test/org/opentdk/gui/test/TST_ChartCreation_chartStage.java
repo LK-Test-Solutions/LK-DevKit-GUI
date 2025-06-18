@@ -129,7 +129,7 @@ public class TST_ChartCreation_chartStage extends Application {
 		ChartAxis xAxis = new ChartAxis();
 		xAxis.setCategories(this.xCategories);
 		xAxis.setTickLabelRotation(270);
-		xAxis.setTickLabelFont(Font.font(12));
+		xAxis.setTickLabelFont(ChartFont.font(12));
 		xAxis.setEndMargin(10);
 		xAxis.setTickLength(3);
 		cp.setxAxis(xAxis);
@@ -159,7 +159,7 @@ public class TST_ChartCreation_chartStage extends Application {
 		y1Axis.setMinorTickMarksVisible(false);
 		y1Axis.setForceZeroInRange(false);
 		y1Axis.setTickLength(5);
-		y1Axis.setMinorTickMarkColor(Color.BLACK);
+		y1Axis.setMinorTickMarkColor("black");
 		cp.setY1Axis(y1Axis);
 
 		List<ChartSeries> series = new ArrayList<>();

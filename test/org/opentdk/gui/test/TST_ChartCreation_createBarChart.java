@@ -124,7 +124,7 @@ public class TST_ChartCreation_createBarChart extends Application {
 		// Abscissa
 		cp.getxAxis().setLabel("X Axis Label");
 		cp.getxAxis().setLabelFont(ChartFont.font(14));
-		cp.getxAxis().setTickLabelFont(Font.font(16));
+		cp.getxAxis().setTickLabelFont(ChartFont.font(16));
 		cp.getxAxis().setTickLabelRotation(270);
 		cp.getxAxis().setStartMargin(this.getAbscissaMargin());
 		cp.getxAxis().setEndMargin(this.getAbscissaMargin());
@@ -135,7 +135,7 @@ public class TST_ChartCreation_createBarChart extends Application {
 		cp.getY1Axis().setValueStep(step);
 		cp.getY1Axis().setLabelFont(ChartFont.font(14));
 		cp.getY1Axis().setMinorTickMarksVisible(true);
-		cp.getY1Axis().setMinorTickMarkColor(Color.valueOf("black"));
+		cp.getY1Axis().setMinorTickMarkColor("black");
 		cp.getY1Axis().setMinorTickCount(Integer.parseInt("5"));
 		cp.getY1Axis().setMinorTickLength(Integer.parseInt("5"));
 

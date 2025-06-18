@@ -175,8 +175,14 @@ public final class ChartMarker {
 		private final String ysValue;
 		private final Number xnValue;
 		private final Number ynValue;
+		private final int xOffset;
+		private final int yOffset;
 
 		private DataPoint(String x, String y) {
+			this(x, y, 0, 0);
+		}
+
+		private DataPoint(String x, String y, int xOff, int yOff) {
 			if (x == null || y == null) {
 				throw new NullPointerException("DataPoint x or y value is null");
 			}
@@ -184,9 +190,15 @@ public final class ChartMarker {
 			ysValue = y;
 			xnValue = -1;
 			ynValue = -1;
+			xOffset = xOff;
+			yOffset = yOff;
 		}
 
 		private DataPoint(String x, Number y) {
+			this(x, y, 0, 0);
+		}
+
+		private DataPoint(String x, Number y, int xOff, int yOff) {
 			if (x == null || y == null) {
 				throw new NullPointerException("DataPoint x or y value is null");
 			}
@@ -197,9 +209,15 @@ public final class ChartMarker {
 			ysValue = null;
 			xnValue = -1;
 			ynValue = y;
+			xOffset = xOff;
+			yOffset = yOff;
 		}
 
 		private DataPoint(Number x, String y) {
+			this(x, y, 0, 0);
+		}
+
+		private DataPoint(Number x, String y, int xOff, int yOff) {
 			if (x == null || y == null) {
 				throw new NullPointerException("DataPoint x or y value is null");
 			}
@@ -210,9 +228,15 @@ public final class ChartMarker {
 			ysValue = y;
 			xnValue = -1;
 			ynValue = -1;
+			xOffset = xOff;
+			yOffset = yOff;
 		}
 
 		private DataPoint(Number x, Number y) {
+			this(x, y, 0, 0);
+		}
+
+		private DataPoint(Number x, Number y, int xOff, int yOff) {
 			if (x == null || y == null) {
 				throw new NullPointerException("DataPoint x or y value is null");
 			}
@@ -223,6 +247,8 @@ public final class ChartMarker {
 			ysValue = null;
 			xnValue = x;
 			ynValue = y;
+			xOffset = xOff;
+			yOffset = yOff;
 		}
 
 		public static DataPoint point(String x, String y) {
@@ -241,6 +267,22 @@ public final class ChartMarker {
 			return new DataPoint(x, y);
 		}
 
+		public static DataPoint point(String x, String y, int xOff, int yOff) {
+			return new DataPoint(x, y, xOff, yOff);
+		}
+
+		public static DataPoint point(String x, Number y, int xOff, int yOff) {
+			return new DataPoint(x, y, xOff, yOff);
+		}
+
+		public static DataPoint point(Number x, String y, int xOff, int yOff) {
+			return new DataPoint(x, y, xOff, yOff);
+		}
+
+		public static DataPoint point(Number x, Number y, int xOff, int yOff) {
+			return new DataPoint(x, y, xOff, yOff);
+		}
+
 		public String getXsValue() {
 			return xsValue;
 		}
@@ -257,6 +299,13 @@ public final class ChartMarker {
 			return ynValue;
 		}
 
-	}
+        public int getxOffset() {
+            return xOffset;
+        }
+
+        public int getyOffset() {
+            return yOffset;
+        }
+    }
 
 }

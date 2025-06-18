@@ -41,18 +41,41 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 
+/**
+ * A helper class for customizing charts by setting markers on the chart.
+ * This class provides functionality to position and configure markers
+ * on a chart based on their associated data points and axes.
+ *
+ * @param <X> The type of the X-axis values.
+ * @param <Y> The type of the Y-axis values.
+ */
 public class CustomChartHelper<X, Y> {
-
+	/**
+	 * Sets the markers on the chart based on the provided list of {@link ChartMarker}.
+	 * The method calculates the position of each marker based on its associated data point
+	 * and the axes provided, and applies any offsets or view order settings.
+	 *
+	 * @param chartMarkers A list of {@link ChartMarker} objects to be added to the chart.
+	 * @param xAxis The X-axis of the chart.
+	 * @param y1Axis The primary Y-axis of the chart.
+	 * @param y2Axis The secondary Y-axis of the chart.
+	 * @throws IllegalArgumentException If a marker's data point is not set correctly
+	 *                                  for the type of axis it belongs to.
+	 * @throws UnsupportedOperationException If a marker contains a child shape that is not supported.
+	 */
 	@SuppressWarnings("unchecked")
-	void setMarkers(List<ChartMarker> chartMarkers, Axis<X> xAxis, Axis<Y> y1Axis, Axis<Y> y2Axis) {
+	public void setMarkers(List<ChartMarker> chartMarkers, Axis<X> xAxis, Axis<Y> y1Axis, Axis<Y> y2Axis) {
 			
 		for (ChartMarker marker : chartMarkers) {
 			String xsValue = marker.getDataPoint().getXsValue();
 			Number xnValue = marker.getDataPoint().getXnValue();
 			String ysValue = marker.getDataPoint().getYsValue();
 			Number ynValue = marker.getDataPoint().getYnValue();
-			Data<X, Y> point = new Data<>();
+			int xOffset = marker.getDataPoint().getxOffset();
+			int yOffset = marker.getDataPoint().getyOffset();
 
+			// Set the coordinates of the data point according to the x and y value that the marker should have
+			Data<X, Y> point = new Data<>();
 			if (xAxis instanceof CategoryAxis) {
 				if (xsValue == null) {
 					throw new IllegalArgumentException("xAxis is of type category but marker xValue is not set");
@@ -66,7 +89,6 @@ public class CustomChartHelper<X, Y> {
 					point.setXValue((X) xnValue);
 				}
 			}
-
 			if (y1Axis instanceof CategoryAxis) {
 				if (ysValue == null) {
 					throw new IllegalArgumentException("y1Axis is of type category but marker yValue is not set. Marker gets not added to the chart");
@@ -81,25 +103,18 @@ public class CustomChartHelper<X, Y> {
 				}
 			}
 			point.setExtraValue(marker.getBelongingAxis());
-			
+
+			// Retrieve the coordinates of the data point as number to position the marker
 			double xOrientation = xAxis.getDisplayPosition(point.getXValue());
-			double yOrientation = Double.NaN;
+			double yOrientation;
 			if (marker.getBelongingAxis() == 1) {
 				yOrientation = y2Axis.getDisplayPosition(point.getYValue());
 			} else {
 				yOrientation = y1Axis.getDisplayPosition(point.getYValue());
 			}
-
+			// Set the markers coordinates with additional offset
 			for (Shape child : marker.getChildren()) {
-				if (child instanceof Arc) {
-					// TODO
-				} else if (child instanceof Circle) {
-
-				} else if (child instanceof Line) {
-
-				} else if (child instanceof Rectangle) {
-
-				} else if (child instanceof Text) {
+				if (child instanceof Text) {
 					Text text = (Text) child;
 					if (text.getText().contentEquals("0")) {
 						text.setText("");
@@ -107,12 +122,22 @@ public class CustomChartHelper<X, Y> {
 					text.setX(xOrientation);
 					text.setY(yOrientation);
 					text.toFront();
+				} else if(child instanceof Rectangle) {
+					Rectangle rec = (Rectangle) child;
+					rec.setX(xOrientation);
+					rec.setY(yOrientation);
+					rec.toFront();
+				}
+				else {
+					throw new UnsupportedOperationException(child.getClass().getSimpleName() + " not supported as marker");
+					// Arc, Circle, Line, Rectangle
 				}
 				child.setViewOrder(marker.getViewOrder());
 			}
+			// Position the container of the marker
 			if (marker.getContainer() == null) {
-				marker.getMarker().setLayoutX(xOrientation);
-				marker.getMarker().setLayoutY(yOrientation);
+				marker.getMarker().setLayoutX(xOrientation + xOffset);
+				marker.getMarker().setLayoutY(yOrientation + yOffset);
 				marker.getMarker().setViewOrder(marker.getViewOrder());
 
 				if (marker.getMarker() instanceof Rectangle) {
@@ -123,8 +148,8 @@ public class CustomChartHelper<X, Y> {
 					}
 				} 
 			} else {
-				marker.getContainer().setLayoutX(xOrientation);
-				marker.getContainer().setLayoutY(yOrientation);
+				marker.getContainer().setLayoutX(xOrientation + xOffset);
+				marker.getContainer().setLayoutY(yOrientation + yOffset);
 				marker.getContainer().setViewOrder(marker.getViewOrder());
 			}
 		}

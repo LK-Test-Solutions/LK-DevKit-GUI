@@ -27,6 +27,7 @@
  */
 package org.opentdk.gui.chart;
 
+import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 /**
@@ -40,7 +41,7 @@ import javafx.scene.text.FontWeight;
 public final class ChartFont {
 
 	private int size = 16;
-	private FontWeight weight = FontWeight.BOLD;
+	private String weight = "Normal";
 	private String family = "System";
 
 	private ChartFont(int size) {
@@ -66,7 +67,7 @@ public final class ChartFont {
 	}
 
 	private void checkWeight(FontWeight weight) {
-		this.weight = weight;
+		this.weight = weight.name();
 	}
 
 	private void checkFamily(String family) {
@@ -89,10 +90,16 @@ public final class ChartFont {
 	}
 
 	public String getFamily() {
+		if(family == null) {
+			return "System";
+		}
 		return family;
 	}
 
-	public FontWeight getWeight() {
+	public String getWeight() {
+		if(weight == null) {
+			return "Normal";
+		}
 		return weight;
 	}
 
@@ -100,9 +107,13 @@ public final class ChartFont {
 		return size;
 	}
 
+	public Font toFont() {
+		return Font.font(getFamily(), FontWeight.findByName(getWeight()), getSize());
+	}
+
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + "[Size: " + size + ", Weight: " + weight.name() + ", Family: " + family + "]";
+		return getClass().getSimpleName() + "[Size: " + size + ", Weight: " + weight + ", Family: " + family + "]";
 	}
 
 }

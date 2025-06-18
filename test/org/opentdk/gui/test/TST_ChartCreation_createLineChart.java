@@ -13,8 +13,6 @@ import org.opentdk.gui.chart.ChartProperties;
 import org.opentdk.gui.chart.ChartSeries;
 import org.opentdk.gui.chart.ChartMarker.DataPoint;
 
-import org.opentdk.api.util.DateUtil;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -62,7 +60,7 @@ public class TST_ChartCreation_createLineChart extends Application {
 		xAxis.setValueRange(31);
 		xAxis.setValueStep(1);
 		xAxis.setLabelFont(ChartFont.font(18, FontWeight.BOLD));
-		xAxis.setTickLabelFont(Font.font(14));
+		xAxis.setTickLabelFont(ChartFont.font(14));
 		xAxis.setLeaveOneStepSpace(true);
 		cp.setxAxis(xAxis);
 
@@ -71,7 +69,7 @@ public class TST_ChartCreation_createLineChart extends Application {
 		y1Axis.setValueRange(100);
 		y1Axis.setValueStep(5);
 		y1Axis.setLabelFont(ChartFont.font(18));
-		y1Axis.setTickLabelFont(Font.font(14));
+		y1Axis.setTickLabelFont(ChartFont.font(14));
 		y1Axis.setMinorTickMarksVisible(false);
 		y1Axis.setForceZeroInRange(true);
 		cp.setY1Axis(y1Axis);
@@ -81,7 +79,7 @@ public class TST_ChartCreation_createLineChart extends Application {
 		y2Axis.setValueRange(7000);
 		y2Axis.setValueStep(1000);
 		y2Axis.setLabelFont(ChartFont.font(18));
-		y2Axis.setTickLabelFont(Font.font(14));
+		y2Axis.setTickLabelFont(ChartFont.font(14));
 		y2Axis.setMinorTickMarksVisible(false);
 		y2Axis.setForceZeroInRange(true);
 		cp.setY2Axis(y2Axis);
@@ -164,14 +162,15 @@ public class TST_ChartCreation_createLineChart extends Application {
 
 		ChartAxis xAxis = new ChartAxis();
 		List<String> xCategories = new ArrayList<>();
-		String sCurDate = DateUtil.get("27.12.2021", "dd.MM.yyyy");
+//		String sCurDate = DateUtil.get("27.12.2021", "dd.MM.yyyy");
 		int daysToThePast = 94;
 		for (int i = daysToThePast; i >= 0; i--) {
-			xCategories.add(DateUtil.get(sCurDate, -i, "dd.MM.yyyy", ChronoUnit.DAYS));
+//			xCategories.add(DateUtil.get(sCurDate, -i, "dd.MM.yyyy", ChronoUnit.DAYS));
+			xCategories.add(String.valueOf(i));
 		}
 		xAxis.setCategories(xCategories);
 		xAxis.setTickLabelRotation(270);
-		xAxis.setTickLabelFont(Font.font(13));
+		xAxis.setTickLabelFont(ChartFont.font(13));
 		xAxis.setEndMargin(30);
 		xAxis.setTickLength(8);
 		cp.setxAxis(xAxis);
@@ -184,7 +183,7 @@ public class TST_ChartCreation_createLineChart extends Application {
 		y1Axis.setMinorTickMarksVisible(true);
 		y1Axis.setForceZeroInRange(true);
 		y1Axis.setMinorTickLength(5);
-		y1Axis.setMinorTickMarkColor(Color.BLACK);
+		y1Axis.setMinorTickMarkColor("black");
 		y1Axis.setMinorTickCount(5);
 		cp.setY1Axis(y1Axis);
 		
@@ -196,7 +195,7 @@ public class TST_ChartCreation_createLineChart extends Application {
 		y2Axis.setForceZeroInRange(true);
 		y2Axis.setMinorTickCount(5);
 		y2Axis.setMinorTickLength(5);
-		y2Axis.setMinorTickMarkColor(Color.BLACK);
+		y2Axis.setMinorTickMarkColor("black");
 		y2Axis.setMinorTickMarksVisible(true);
 		cp.setY2Axis(y2Axis);
 		

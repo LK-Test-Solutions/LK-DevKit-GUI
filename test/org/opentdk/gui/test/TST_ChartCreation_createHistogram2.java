@@ -59,7 +59,7 @@ public class TST_ChartCreation_createHistogram2 extends Application {
 		xaxis.setLabel("Time range (ms)");
 		xaxis.setLabelFont(ChartFont.font(14));
 		xaxis.setCategories(Arrays.asList(xCategories));
-		xaxis.setTickLabelFont(Font.font(12));
+		xaxis.setTickLabelFont(ChartFont.font(12));
 		xaxis.setTickLabelRotation(270);
 		cp.setxAxis(xaxis);
 

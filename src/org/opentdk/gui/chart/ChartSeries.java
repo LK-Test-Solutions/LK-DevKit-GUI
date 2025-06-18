@@ -50,7 +50,6 @@ import javafx.scene.shape.Shape;
  * series.setSeriesName("Name");
  * series.setSeriesColor(Color.STEELBLUE);
  * series.setSeriesLabelVisible(false);
- * series.setSeriesFontSize(16);
  * ...
  * seriesValues.add(series);
  * cp.setSeriesValues(seriesValues);
