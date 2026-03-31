@@ -5,7 +5,7 @@
     <envs>
       <env name="PATH" value="C:\Java\javafx-sdk-21.0.6\bin" />
     </envs>
-    <option name="MAIN_CLASS_NAME" value="org.opentdk.gui.test.TST_ChartCreation_chartStage" />
+    <option name="MAIN_CLASS_NAME" value="test.org.lk.devkit.gui.TST_ChartCreation_chartStage" />
     <module name="opentdk-gui" />
     <option name="VM_PARAMETERS" value="--module-path &quot;C:\Java\javafx-sdk-21.0.6\lib&quot; --add-modules javafx.controls,javafx.fxml " />
     <extension name="coverage">

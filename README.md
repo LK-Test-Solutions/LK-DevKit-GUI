@@ -14,8 +14,8 @@ See the test cases of the project.
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import org.opentdk.gui.application.BaseApplication;
-import org.opentdk.gui.controls.MessageDialog.MessageType;
+import application.org.lk.devkit.gui.BaseApplication;
+import controls.org.lk.devkit.gui.MessageDialog.MessageType;
 
 import javafx.application.Platform;
 import javafx.scene.control.ButtonType;
@@ -35,6 +35,7 @@ public final class CustomApp extends BaseApplication {
      */
     @Getter
     private RootController rootController;
+
     /**
      * Initializes the {@link #instance}.
      */
@@ -43,18 +44,18 @@ public final class CustomApp extends BaseApplication {
             instance = this;
         }
     }
-    
+
     /**
      * Entry point of the <code>CustomApp</code> application where the
      * <code>javafx.Application.launch()</code> method gets called which starts the JavaFX application
      * thread and triggers the {@link #showRootLayout()} method.
-     * 
+     *
      * @param args unused
      */
     public static void main(String[] args) {
         launch();
     }
-    
+
     /**
      * Initialization of the {@link #rootController} that shows the primary stage.
      * Has to be a valid FXML file (build with SceneBuilder)
@@ -76,9 +77,9 @@ public final class CustomApp extends BaseApplication {
         } catch (IOException e) {
             e.printStackTrace();
             Platform.exit();
-        } 
+        }
     }
-    
+
     public ButtonType showMessageDialog(MessageType type, String info, String message) {
         return getMessageDialog().showMessageBox(type, getBundle().getString(info), getBundle().getString(message));
     }

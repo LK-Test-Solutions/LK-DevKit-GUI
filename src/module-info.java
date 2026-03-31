@@ -1,8 +1,8 @@
 module opentdk.gui {
 	
-	exports org.opentdk.gui.application;
-	exports org.opentdk.gui.controls;
-	exports org.opentdk.gui.chart;
+	exports org.lk.devkit.gui.application;
+	exports org.lk.devkit.gui.controls;
+	exports org.lk.devkit.gui.chart;
 	exports com.kostikiadis.charts;
 
 	requires transitive javafx.base;
@@ -12,4 +12,5 @@ module opentdk.gui {
 	requires transitive javafx.swing;
 	
 	requires transitive java.logging;
+    requires static lombok;
 }
