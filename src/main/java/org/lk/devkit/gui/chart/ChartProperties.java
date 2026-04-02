@@ -61,6 +61,7 @@ import javafx.scene.paint.Color;
  * @author FME (LK Test Solutions)
  *
  */
+// TODO lombok getter
 public final class ChartProperties {
 
 	private static final int maxChartSize = 10000;

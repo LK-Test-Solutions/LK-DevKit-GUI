@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<!-- Coordinates -->
-	<groupId>org.lk.devkit</groupId>
+	<groupId>org.lkdevkit</groupId>
 	<artifactId>lk-devkit-gui</artifactId>
 	<version>2026-03-30</version>
 	<properties>
@@ -9,11 +9,12 @@
 		<maven.compiler.target>21</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<javafx.version>21.0.6</javafx.version>
 	</properties>
 	<packaging>jar</packaging>
 	<!-- Name, description and URL -->
 	<name>${project.groupId}:${project.artifactId}</name>
-	<description>The Open Tool Development Kit provides packages and classes for easy implementation of Java tools or applications. Originally designed for test supporting software.</description>
+	<description>The LK Development Kit provides packages and classes for easy implementation of Java tools or applications. Originally designed for test supporting software.</description>
 	<url>https://github.com/LK-Test-Solutions/LK-DevKit-GUI</url>
 	<!-- License information -->
 	<licenses>
@@ -81,8 +82,8 @@
 	</profiles>
 	<!-- Build Properties -->
 	<build>
-		<sourceDirectory>src</sourceDirectory>
-		<testSourceDirectory>test</testSourceDirectory>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
 		<resources>
 			<resource>
 				<directory>src</directory>
@@ -144,31 +145,32 @@
 	</build>
 	<!-- Required external libraries -->
 	<dependencies>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-base</artifactId>
-			<version>21</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-controls</artifactId>
-			<version>21</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-fxml</artifactId>
-			<version>21</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-swing</artifactId>
-			<version>21</version>
-		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.18.36</version>
+		</dependency>
+		<!-- -->
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-controls</artifactId>
+			<version>21.0.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-fxml</artifactId>
+			<version>21.0.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-base</artifactId>
+			<version>21.0.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-swing</artifactId>
+			<version>21.0.6</version>
 		</dependency>
 	</dependencies>
 </project>
